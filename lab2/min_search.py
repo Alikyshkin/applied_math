@@ -25,7 +25,7 @@ def fibonacci(f, x_start, x_end, eps):
 
     iters = 0
     while n > 2:
-        print("Iter:", iters, ", Curr interval: (", x_start, ", ", x_end, "), diff between prev interval: ", (abs(x_end - x_start)), ", xmin: ", (x_start + x_end)/2.0, ", func calculations: ", function_calcs)
+        # print("Iter:", iters, ", Curr interval: (", x_start, ", ", x_end, "), diff between prev interval: ", (abs(x_end - x_start)), ", xmin: ", (x_start + x_end)/2.0, ", func calculations: ", function_calcs)
         n -= 1
         iters += 1
 
@@ -45,9 +45,11 @@ def fibonacci(f, x_start, x_end, eps):
             fx2 = f(x2)
             function_calcs += 1
 
-    return (x_start + x_end) / 2.0
+    res = x_start + x_end / 2
+    return res
 
 
+# Альфа - коэффициент масштаба для направления
 def linear_search(f, eps):
     alpha = 0
     der = derivative(f, alpha)
@@ -94,4 +96,5 @@ def gold_section(f, eps):
             f1 = f2
             x2 = b - rphi * (b - a)
             f2 = f(x2)
-    return x1 + x2 / 2
+    res = x1 + x2 / 2
+    return res

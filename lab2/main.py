@@ -158,7 +158,7 @@ def n_by_k(n):
         start = np.array([randint(-10000, 10000) for _ in range(j * 10)])
         ans, steps, points = steepest_descent_gradient(func, grad, start, 0.001, ms.fibonacci, 10000)
         s[j] = steps
-        print(f"{j * 10} = {steps}")
+        print(f"{j * 10} j*10 = {steps} шагов") #эту функцию понять и простить
 
     y = [0]
     x = [0]
@@ -171,17 +171,19 @@ def n_by_k(n):
 
 
 def test_on(func, grad, hesse, x0, eps, min_f, ans):
-    print(f"test all functions on x0 = {x0} eps = {eps}\n  ans = {ans}")
-    print(f"steepest descent method = ", end="")
+    print(f"Все ответы для x0 = {x0}, eps = {eps},  ans = {ans}")
+    print(f"Метод наискорейшего спуска = ", end="")
     do_report(func, steepest_descent_gradient(func, grad, np.copy(x0), eps, min_f))
-    print(f"conjugate_gradient = ", end="")
+    print(f"Метод сопряженных градиентов = ", end="")
     do_report(func, conjugate_gradient(func, grad, np.copy(x0), eps, min_f))
-    print(f"pavel_method = ", end="")
+    # print(f"pavel_method = ", end="")
+    print(f"Метод сопряженных направлений = ", end="")
     do_report(func, conugate_directions(func, grad, np.copy(x0), eps, min_f))
-    print(f"descent_gradient = ", end="")
+    print(f"Метод градиентного спуска = ", end="")
     do_report(func, descent_gradient(grad, np.copy(x0), 20, eps))
-    print(f"newton method = ", end="")
+    print(f"Метод ньютона = ", end="")
     do_report(func, newton(grad, hesse, np.copy(x0), eps))
+    print(f"траектория реализованных методов: \n ", end="")
     n_by_k(10)
 
 
