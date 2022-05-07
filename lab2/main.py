@@ -75,8 +75,8 @@ def draw_level_lines(func, points: list):
 
 def do_report(func, t):
     ans, steps, points = t
-    print(f"{ans} steps = {steps}")
     draw_level_lines(func, points)
+    print(f"{ans} steps = {steps}")
 
 
 def test_on(func, grad, x0, eps, min_f):
