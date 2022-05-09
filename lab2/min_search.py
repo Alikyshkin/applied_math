@@ -6,6 +6,8 @@ from scipy.misc import derivative
 def const(f, eps, step):
     return 0.1
 
+
+# Дробление шага
 def step_decreaser(f, e, step):
     v = 0.4
     der = 0
@@ -52,6 +54,7 @@ def fib(n):
     return fib2
 
 
+# Метод Фибоначчи
 def fibonacci(f, eps, step):
     a = 0
     b = 10
@@ -82,6 +85,8 @@ def fibonacci(f, eps, step):
         b = m
     return a + b / 2
 
+
+# Линейный поиск
 def linear_search(f, e, step):
     alpha = 0
     der = derivative(f, alpha)
