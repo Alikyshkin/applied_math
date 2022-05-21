@@ -1,8 +1,9 @@
 import numpy as np
 from scipy.sparse import lil_matrix
-from lu_decomposition import*
+from lu_decomposition import *
 
 
+# A - матрица хранящаяся в разреженном виде
 def get_inverse_sparse(A):
     n = A.shape[0]
 

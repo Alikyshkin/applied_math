@@ -2,6 +2,7 @@ from inverse import get_inverse_sparse
 from scipy.sparse import dok_matrix
 
 
+# Итерационный метод Зейделя
 def zeidel(A, B, EPS):
     U = dok_matrix(A.shape)
     L = dok_matrix(A.shape)
@@ -26,11 +27,10 @@ def zeidel(A, B, EPS):
     return x, count
 
 
+# Сравнение
 def isNotEqual(A, B, EPS):
     for i in range(A.shape[0]):
         for j in range(A.shape[1]):
             if abs(A[i, j] - B[i, j]) > EPS:
                 return True
     return False
-
-
