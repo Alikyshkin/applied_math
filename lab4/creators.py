@@ -3,6 +3,7 @@ from random import random, randint
 import numpy as np
 from scipy.sparse import dok_matrix
 
+# Создает уравнение для решения
 def create_diagonal_preobl_matrix(k, n):
     A = dok_matrix((n, n))
     for i in range(n):
@@ -16,6 +17,7 @@ def create_diagonal_preobl_matrix(k, n):
         A[i, i] += pow(10, -k)
     return A
 
+# Создает уравнение для решения с матрицей Гильберта
 def create_gilbert_matrix(n):
     M = dok_matrix((n, n))
     for i in range(n):
@@ -23,6 +25,7 @@ def create_gilbert_matrix(n):
             M[i, j] = 1 / (i + j + 1)
     return M
 
+# Генерация массива
 def createArray(x, y):
     r = 0
     array = []
