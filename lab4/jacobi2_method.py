@@ -59,6 +59,6 @@ def jacobi2(a, tol=1.0e-9):  # Jacobi method
             for j in range(i + 1, n):
                 if abs(a[i, j]) >= mu:
                     rotate(a, p, i, j)
-        if mu <= tol: return numpy.diagonal(numpy.flip(a)), p
+        if mu <= tol: return numpy.diagonal(numpy.flip(a)), numpy.round(p)
         #return csr_matrix.diagonal(a), p
     print ('Jacobi method did not converge')

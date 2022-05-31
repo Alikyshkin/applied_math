@@ -90,7 +90,7 @@ def jacobi1(a, tol=1.0e-9):  # Jacobi method
     p = identity(n) * 1.0  # Initialize transformation matrix
     for i in range(maxRot):  # Jacobi rotation loop
         aMax, k, l = maxElem1(a)
-        if aMax < tol: return numpy.diagonal(numpy.flip(a)), p
+        if aMax < tol: return numpy.diagonal(numpy.flip(a)), numpy.round(p)
         # if aMax < tol: return csr_matrix.diagonal(a), p
         rotate1(a, p, k, l)
     print ('Jacobi method did not converge')
