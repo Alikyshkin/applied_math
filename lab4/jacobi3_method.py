@@ -9,8 +9,8 @@ def jacobi3(A, tol=1.0e-9):
         '''
             Find largest off-diag. element a[k,l]
         '''
-        n = len(a)
-        # n = a.shape[0]
+        # n = len(a)
+        n = a.shape[0]
         aMax = 0.0
         for i in range(n - 1):
             for j in range(i + 1, n):
@@ -64,8 +64,8 @@ def jacobi3(A, tol=1.0e-9):
             p[i, k] = temp - s * (p[i, l] + tau * p[i, k])
             p[i, l] = p[i, l] + s * (temp - tau * p[i, l])
 
-    n = len(a)
-    # n = a.shape[0]
+    # n = len(a)
+    n = a.shape[0]
     maxRot = 5 * (n ** 2)  # Set rotation number limit
     p = numpy.identity(n) * 1.0  # Initialize transformation matrix
 
@@ -74,8 +74,8 @@ def jacobi3(A, tol=1.0e-9):
 
         if aMax < tol:
             print("Number of rotations: " + str(i + 1))
-            return numpy.diagonal(numpy.flip(a)), p
-            # return csr_matrix.diagonal(a), p
+            # return numpy.diagonal(numpy.flip(a)), p
+            return csr_matrix.diagonal(a), p
 
         rotate(a, p, k, l)
 

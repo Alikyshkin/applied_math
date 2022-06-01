@@ -48,8 +48,8 @@ def jacobi2(a, tol=1.0e-9):  # Jacobi method
             p[i, k] = temp - s * (p[i, l] + tau * p[i, k])
             p[i, l] = p[i, l] + s * (temp - tau * p[i, l])
 
-    n = len(a)
-    # n = a.shape[0]
+    # n = len(a)
+    n = a.shape[0]
     # n = a.shape
     # n = csr_matrix.getnnz(a)
     p = numpy.identity(n, float)
@@ -59,6 +59,6 @@ def jacobi2(a, tol=1.0e-9):  # Jacobi method
             for j in range(i + 1, n):
                 if abs(a[i, j]) >= mu:
                     rotate(a, p, i, j)
-        if mu <= tol: return numpy.diagonal(numpy.flip(a)), numpy.round(p)
-        #return csr_matrix.diagonal(a), p
+        # if mu <= tol: return numpy.diagonal(numpy.flip(a)), p
+        return csr_matrix.diagonal(a), p
     print ('Jacobi method did not converge')

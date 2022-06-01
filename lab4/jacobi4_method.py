@@ -2,6 +2,7 @@ from math import sqrt
 
 import numpy as numpy
 from numpy import identity, diagonal
+from scipy.sparse import csr_matrix
 
 
 def jacobi4(ain, tol=1.0e-9):  # Jacobi method
@@ -51,11 +52,13 @@ def jacobi4(ain, tol=1.0e-9):  # Jacobi method
             p[i, l] = p[i, l] + s * (temp - tau * p[i, l])
 
     a = numpy.copy(ain)
-    n = len(a)
+    # n = len(a)
+    n = a.shape[0]
     maxRot = 5 * (n ** 2)  # Set limit on number of rotations
     p = identity(n) * 1.0  # Initialize transformation matrix
     for i in range(maxRot):  # Jacobi rotation loop
         aMax, k, l = maxElem(a)
-        if aMax < tol: return numpy.diagonal(numpy.flip(a)), p
+        # if aMax < tol: return numpy.diagonal(numpy.flip(a)), p
+        if aMax < tol: return csr_matrix.diagonal(a), p
         rotate(a, p, k, l)
     print('Jacobi method did not converge')

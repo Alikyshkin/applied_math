@@ -1,10 +1,8 @@
 import numpy as numpy
 from numpy import array, identity, diagonal, newaxis
 from math import sqrt
-from scipy.sparse import csr_matrix
+from scipy.sparse import csr_matrix, dok_matrix
 
-# НЕ РАБОТАЕТ
-# https://github.com/mateuv/MetodosNumericos/blob/master/python/NumericalMethodsInEngineeringWithPython/jacobi.py
 def swapRows(v, i, j):
     if len(v.shape) == 1:
         v[i], v[j] = v[j], v[i]
@@ -19,26 +17,26 @@ def swapCols(v, i, j):
     v[:, j] = v[:, i]
     v[:, i] = temp
 
-def sortJacobi(lam,x):
+
+def sortJacobi(lam, x):
     n = len(lam)
-    for i in range(n-1):
+    for i in range(n - 1):
         index = i
         val = lam[i]
-        for j in range(i+1,n):
+        for j in range(i + 1, n):
             if lam[j] < val:
                 index = j
                 val = lam[j]
         if index != i:
-            swapRows(lam,i,index)
-            swapCols(x,i,index)
-
+            swapRows(lam, i, index)
+            swapCols(x, i, index)
 
 
 def jacobi1(a, tol=1.0e-9):  # Jacobi method
 
     def maxElem1(a):  # Find largest off-diag. element a[k,l]
-        # n = a.shape[0]
-        n = len(a)
+        n = a.shape[0]
+        # n = len(a)
 
         aMax = 0.0
         for i in range(n - 1):
@@ -50,8 +48,8 @@ def jacobi1(a, tol=1.0e-9):  # Jacobi method
         return aMax, k, l
 
     def rotate1(a, p, k, l):  # Rotate to make a[k,l] = 0
-        # n = a.shape[0]
-        n = len(a)
+        n = a.shape[0]
+        # n = len(a)
 
         aDiff = a[l, l] - a[k, k]
         if abs(a[k, l]) < abs(aDiff) * 1.0e-36:
@@ -60,7 +58,7 @@ def jacobi1(a, tol=1.0e-9):  # Jacobi method
             phi = aDiff / (2.0 * a[k, l])
             t = 1.0 / (abs(phi) + sqrt(phi ** 2 + 1.0))
             if phi < 0.0: t = -t
-        c = 1.0 / sqrt(t ** 2 + 1.0);
+        c = 1.0 / sqrt(t ** 2 + 1.0)
         s = t * c
         tau = s / (1.0 + c)
         temp = a[k, l]
@@ -84,14 +82,15 @@ def jacobi1(a, tol=1.0e-9):  # Jacobi method
             p[i, k] = temp - s * (p[i, l] + tau * p[i, k])
             p[i, l] = p[i, l] + s * (temp - tau * p[i, l])
 
-    n = len(a)
-    # n = a.shape[0]
+    # n = len(a)
+    n = a.shape[0]
     maxRot = 5 * (n ** 2)  # Set limit on number of rotations
     p = identity(n) * 1.0  # Initialize transformation matrix
     for i in range(maxRot):  # Jacobi rotation loop
         aMax, k, l = maxElem1(a)
-        if aMax < tol: return numpy.diagonal(numpy.flip(a)), numpy.round(p)
-        # if aMax < tol: return csr_matrix.diagonal(a), p
-        rotate1(a, p, k, l)
-    print ('Jacobi method did not converge')
+        # if aMax < tol: return numpy.diagonal(numpy.flip(a)), numpy.round(p), i
+        # if aMax < tol: return csr_matrix.diagonal(a), numpy.round(p), i
+        if aMax < tol: return dok_matrix.diagonal(a), p, i
 
+        rotate1(a, p, k, l)
+    print('Jacobi method did not converge')
